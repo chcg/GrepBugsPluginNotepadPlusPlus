@@ -4,7 +4,6 @@ image: Visual Studio 2017
 
 environment:
   matrix:
-    - PlatformToolset: VS15
     - PlatformToolset: VS17
 
 platform:
@@ -35,21 +34,21 @@ after_build:
     - ps: >-
 
         if ($env:PLATFORM_INPUT -eq "x64" -and $env:CONFIGURATION -eq "Release") {
-            #Push-AppveyorArtifact "bin\$env:PLATFORM_INPUT\$env:CONFIGURATION\GrepBugsPluginNpp.dll" -FileName GrepBugsPluginNpp.dll
+            Push-AppveyorArtifact "bin\$env:PLATFORM_INPUT\$env:CONFIGURATION\GrepBugsPluginNpp.dll" -FileName GrepBugsPluginNpp.dll
         }
 
         if ($env:PLATFORM_INPUT -eq "Any CPU" -and $env:CONFIGURATION -eq "Release") {
-            #Push-AppveyorArtifact "bin\$env:CONFIGURATION\GrepBugsPluginNpp.dll" -FileName GrepBugsPluginNpp.dll
+            Push-AppveyorArtifact "bin\$env:CONFIGURATION\GrepBugsPluginNpp.dll" -FileName GrepBugsPluginNpp.dll
         }
 
-        if ($($env:APPVEYOR_REPO_TAG) -eq "true" -and $env:CONFIGURATION -eq "Release" -and $env:PLATFORMTOOLSET -eq "VS17") {
+        if ($env:CONFIGURATION -eq "Release" -and $env:PLATFORMTOOLSET -eq "VS17") {
             if($env:PLATFORM_INPUT -eq "x64"){
-            $ZipFileName = "GrepBugsPluginNpp_$($env:APPVEYOR_REPO_TAG_NAME)_x64.zip"
-            7z a $ZipFileName bin\$env:PLATFORM_INPUT\$env:CONFIGURATION\GrepBugsPluginNpp.dll
+                $ZipFileName = "GrepBugsPluginNpp_$($env:APPVEYOR_REPO_TAG_NAME)_x64.zip"
+                7z a $ZipFileName bin\$env:PLATFORM_INPUT\$env:CONFIGURATION\GrepBugsPluginNpp.dll
             }
             if($env:PLATFORM_INPUT -eq "Any CPU"){
-            $ZipFileName = "GrepBugsPluginNpp_$($env:APPVEYOR_REPO_TAG_NAME)_x86.zip"
-            7z a $ZipFileName bin\$env:CONFIGURATION\GrepBugsPluginNpp.dll
+                $ZipFileName = "GrepBugsPluginNpp_$($env:APPVEYOR_REPO_TAG_NAME)_x86.zip"
+                7z a $ZipFileName bin\$env:CONFIGURATION\GrepBugsPluginNpp.dll
             }
         }
 
