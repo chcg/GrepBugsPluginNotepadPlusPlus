@@ -44,11 +44,11 @@ after_build:
         if ($env:CONFIGURATION -eq "Release" -and $env:PLATFORMTOOLSET -eq "VS17") {
             if($env:PLATFORM_INPUT -eq "x64"){
                 $ZipFileName = "GrepBugsPluginNpp_$($env:APPVEYOR_REPO_TAG_NAME)_x64.zip"
-                7z a $ZipFileName GrepBugsPluginNpp\bin\$env:PLATFORM_INPUT\$env:CONFIGURATION\GrepBugsPluginNpp.dll
+                7z a $ZipFileName $env:APPVEYOR_BUILD_FOLDER\GrepBugsPluginNpp\bin\$env:PLATFORM_INPUT\$env:CONFIGURATION\GrepBugsPluginNpp.dll
             }
             if($env:PLATFORM_INPUT -eq "Any CPU"){
                 $ZipFileName = "GrepBugsPluginNpp_$($env:APPVEYOR_REPO_TAG_NAME)_x86.zip"
-                7z a $ZipFileName GrepBugsPluginNpp\bin\$env:CONFIGURATION\GrepBugsPluginNpp.dll
+                7z a $ZipFileName $env:APPVEYOR_BUILD_FOLDER\GrepBugsPluginNpp\bin\$env:CONFIGURATION\GrepBugsPluginNpp.dll
             }
         }
 
