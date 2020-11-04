@@ -30,25 +30,25 @@ build_script:
     - msbuild GrepBugPluginNpp.sln /m /p:configuration="%configuration%" /p:platform="%platform_input%"  /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
 
 after_build:
-    - cd "%APPVEYOR_BUILD_FOLDER%"\GrepBugsPluginNpp
+    - cd "%APPVEYOR_BUILD_FOLDER%"
     - ps: >-
 
         if ($env:PLATFORM_INPUT -eq "x64" -and $env:CONFIGURATION -eq "Release") {
-            Push-AppveyorArtifact "bin\$env:PLATFORM_INPUT\$env:CONFIGURATION\GrepBugsPluginNpp.dll" -FileName GrepBugsPluginNpp.dll
+            Push-AppveyorArtifact "GrepBugsPluginNpp\bin\$env:PLATFORM_INPUT\$env:CONFIGURATION\GrepBugsPluginNpp.dll" -FileName GrepBugsPluginNpp.dll
         }
 
         if ($env:PLATFORM_INPUT -eq "Any CPU" -and $env:CONFIGURATION -eq "Release") {
-            Push-AppveyorArtifact "bin\$env:CONFIGURATION\GrepBugsPluginNpp.dll" -FileName GrepBugsPluginNpp.dll
+            Push-AppveyorArtifact "GrepBugsPluginNpp\bin\$env:CONFIGURATION\GrepBugsPluginNpp.dll" -FileName GrepBugsPluginNpp.dll
         }
 
         if ($env:CONFIGURATION -eq "Release" -and $env:PLATFORMTOOLSET -eq "VS17") {
             if($env:PLATFORM_INPUT -eq "x64"){
                 $ZipFileName = "GrepBugsPluginNpp_$($env:APPVEYOR_REPO_TAG_NAME)_x64.zip"
-                7z a $ZipFileName bin\$env:PLATFORM_INPUT\$env:CONFIGURATION\GrepBugsPluginNpp.dll
+                7z a $ZipFileName GrepBugsPluginNpp\bin\$env:PLATFORM_INPUT\$env:CONFIGURATION\GrepBugsPluginNpp.dll
             }
             if($env:PLATFORM_INPUT -eq "Any CPU"){
                 $ZipFileName = "GrepBugsPluginNpp_$($env:APPVEYOR_REPO_TAG_NAME)_x86.zip"
-                7z a $ZipFileName bin\$env:CONFIGURATION\GrepBugsPluginNpp.dll
+                7z a $ZipFileName GrepBugsPluginNpp\bin\$env:CONFIGURATION\GrepBugsPluginNpp.dll
             }
         }
 
