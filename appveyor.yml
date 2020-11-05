@@ -41,7 +41,7 @@ after_build:
             Push-AppveyorArtifact "GrepBugsPluginNpp\bin\$env:CONFIGURATION\GrepBugsPluginNpp.dll" -FileName GrepBugsPluginNpp.dll
         }
 
-        if ($env:CONFIGURATION -eq "Release" -and $env:PLATFORMTOOLSET -eq "VS17") {
+        if ($($env:APPVEYOR_REPO_TAG) -eq "true" -and $env:CONFIGURATION -eq "Release" -and $env:PLATFORMTOOLSET -eq "VS17") {
             if($env:PLATFORM_INPUT -eq "x64"){
                 $ZipFileName = "GrepBugsPluginNpp_$($env:APPVEYOR_REPO_TAG_NAME)_x64.zip"
                 7z a $ZipFileName $env:APPVEYOR_BUILD_FOLDER\GrepBugsPluginNpp\bin\$env:PLATFORM_INPUT\$env:CONFIGURATION\GrepBugsPluginNpp.dll
